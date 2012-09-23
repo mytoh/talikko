@@ -4,7 +4,8 @@
 
 (define-module talikko.työkalu
   (export
-    run-command-sudo)
+    run-command-sudo
+    with-cwd)
   (use gauche.process))
 (select-module talikko.työkalu)
 
@@ -21,3 +22,10 @@
      (begin
        (run-process c1 :wait #t)
        (run-command c2 ...)))))
+
+(define-macro (with-cwd dir . body)
+  `(let ((cur (current-directory))
+         (dest ,dir))
+     (current-directory dest)
+     ,@body
+     (current-directory cur)))
