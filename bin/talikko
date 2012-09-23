@@ -10,109 +10,18 @@
 (use util.match)
 (use util.list) ; slices
 (use text.csv)
-(require-extension (srfi 1 11 13))
 (use kirjasto.komento.työkalu)
-(use kirjasto.väri)
 (use kirjasto.merkkijono)
 (use clojure.fs)
-(require-extension (srfi 1 13))
+(require-extension (srfi 1 11 13))
 
-
-(define-constant package-directory "/var/db/pkg")
-(define-constant ports-directory   "/usr/ports")
-(define-constant index-file   (string-append
-                                "INDEX-"
-                                (car (string-split
-                                       (caddr (sys-uname))
-                                       "."))))
-
-;; colour values, 256 terminal colour
-(define-constant colour-message  138)
-(define-constant colour-symbol   97)
-(define-constant colour-package  49)
-(define-constant colour-package-category 172)
-(define-constant colour-package-version  142)
-(define-constant colour-package-description  244)
+(use talikko.väri)
+(use talikko.commands)
+(use talikko.env)
 
 
 
-; info {{{
-(define (package-list)
-  (map simplify-path
-       (directory-list package-directory :children? #t)))
 
-(define (info-find-packages name)
-  #| display installed package information|#
-  (let1 list-packages (lambda (n)
-                        (filter
-                          (lambda (s)
-                            (string-scan s n))
-                          (package-list)))
-    (map
-      (lambda (s)
-        (let* ((full-name (string-split s "-"))
-               (version-number (last full-name)))
-          (list
-            (string-join
-              (remove
-                (lambda (x) (eq? x version-number)) full-name)
-              "-")
-            version-number
-            (file->string (build-path package-directory s "+COMMENT")))))
-      (list-packages name))))
-
-(define (info-print-packages name)
-  (let ((lst (info-find-packages name)))
-    (cond
-      ((null? lst)
-       (print (colour-string colour-message "no package found")))
-      (else
-        (map (lambda (x)
-               (print
-                 (concat
-                   `(" "
-                     ,(colour-string colour-package (car x))
-                     " "
-                     "["
-                     ,(colour-string 172 (cadr x)) "]")))
-               (display "    ")
-               (display (caddr x))
-               (newline))
-             lst)))))
-; }}}
-
-; update {{{
-(define (update-ports-tree)
-  (cond
-    ((file-exists? "/usr/ports")
-     (cond
-       ((file-exists? "/usr/ports/.svn")
-        (print (concat (colour-string colour-symbol ":: ")
-                       (colour-string colour-message "Updating source tree")))
-        (run-command-sudo '(svn up /usr/ports))
-        (fetch-index-file))
-       ((file-exists? "/usr/ports/.git")
-        (current-directory "/usr/ports")
-        (print (concat (colour-string colour-symbol ":: ")
-                       (colour-string colour-message "Updating source tree")))
-        (run-command-sudo '(git pull))
-        (fetch-index-file))))
-    (else
-      (print (concat (colour-string colour-symbol ":: ")
-                     (colour-string colour-message "Get source tree")))
-      (run-command-sudo '(svn checkout -q http://svn.freebsd.org/ports/head /usr/ports))
-      (fetch-index-file))))
-; }}}
-
-;; srcup {{{
-;; update kernel source
-(define (update-source-tree)
-  (cond
-    ((file-exists? "/usr/src")
-     (run-command-sudo '(svn up /usr/src)))
-    (else
-      (run-command-sudo '(svn co -q http://svn.freebsd.org/base/head /usr/src)))))
-;; }}}
 
 ; install {{{
 (define (install-package package)
@@ -227,7 +136,7 @@
   (exit status "usage: ~a <command> <package-name>\n" "talikko"))
 
 (define (runner args)
-  (let-args args
+  (let-args (cdr args)
     ((search "S|search=s")
      (#f "h|help" (usage 0))
      . rest)
@@ -238,9 +147,9 @@
         (match (car rest)
           ; commands
           ("info"
-           (info-print-packages (cadr rest)))
+           (info (cadr rest)))
           ((or "update" "up")
-           (update-ports-tree))
+           (update))
           ("install"
            (install-package (cadr rest)))
           ((or "deinstall" "remove")
