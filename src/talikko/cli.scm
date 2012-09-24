@@ -29,7 +29,7 @@
            (update))
           ("install"
            (install (cadr rest)))
-          ((or "deinstall" "remove")
+          ((or "deinstall" "remove" "rm")
            (deinstall-package (cadr rest)))
           ("reinstall"
            (reinstall-package (cadr rest)))
