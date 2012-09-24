@@ -53,7 +53,8 @@
        ((file-exists? "/usr/src/.svn")
         (run-command-sudo '(svn up /usr/src)))
        ((file-exists? "/usr/src/.git")
-        (run-command-sudo '(git pull)
+        (run-process '(sudo git pull)
+                     :wait #t
                      :directory "/usr/src"))))
     (else
       (run-command-sudo '(svn co -q http://svn.freebsd.org/base/head /usr/src)))))

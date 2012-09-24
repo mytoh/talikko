@@ -9,13 +9,9 @@
   (use gauche.process))
 (select-module talikko.työkalu)
 
-; (define (run-command-sudo command)
-;   (run-process (append '(sudo) command) :wait #t))
+(define (run-command-sudo command)
+  (run-process (append '(sudo) command) :wait #t))
 
-(define-macro (run-command-sudo command . options)
-  `(run-process (append '(sudo) ,command)
-                :wait #t
-                ,@options))
 
 
 (define-syntax run-command
