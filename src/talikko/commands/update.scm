@@ -5,11 +5,11 @@
   (export
     update
     update-source-tree)
-   (use file.util)
-   ;; internal libs
-   (use talikko.väri)
-   (use talikko.työkalu)
-   (use talikko.env))
+  (use file.util)
+  ;; internal libs
+  (use talikko.väri)
+  (use talikko.työkalu)
+  (use talikko.env))
 (select-module talikko.commands.update)
 
 ; update {{{
@@ -19,18 +19,18 @@
      (cond
        ((file-exists? "/usr/ports/.svn")
         (print (string-append (colour-string colour-symbol ":: ")
-                       (colour-string colour-message "Updating ports tree")))
+                              (colour-string colour-message "Updating ports tree")))
         (run-command-sudo '(svn up /usr/ports))
         (fetch-index-file))
        ((file-exists? "/usr/ports/.git")
         (current-directory "/usr/ports")
         (print (string-append (colour-string colour-symbol ":: ")
-                       (colour-string colour-message "Updating ports tree")))
+                              (colour-string colour-message "Updating ports tree")))
         (run-command-sudo '(git pull))
         (fetch-index-file))))
     (else
       (print (string-append (colour-string colour-symbol ":: ")
-                     (colour-string colour-message "Get ports tree")))
+                            (colour-string colour-message "Get ports tree")))
       (run-command-sudo '(svn checkout -q http://svn.freebsd.org/ports/head /usr/ports))
       (fetch-index-file))))
 
@@ -46,10 +46,16 @@
 ;; update kernel source
 (define (update-source-tree)
   (print (string-append (colour-string colour-symbol ":: ")
-                              (colour-string colour-message "Updating source tree")))
+                        (colour-string colour-message "Updating source tree")))
   (cond
     ((file-exists? "/usr/src")
-     (run-command-sudo '(svn up /usr/src)))
+     (cond
+       ((file-exists? "/usr/src/.svn")
+        (run-command-sudo '(svn up /usr/src)))
+       ((file-exists? "/usr/src/.git")
+        (run-process '(sudo git pull)
+                     :wait #t
+                     :directory "/usr/src"))))
     (else
       (run-command-sudo '(svn co -q http://svn.freebsd.org/base/head /usr/src)))))
 ;; }}}
