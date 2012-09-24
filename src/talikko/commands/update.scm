@@ -7,9 +7,8 @@
     update-source-tree)
   (use file.util)
   ;; internal libs
-  (use talikko.väri)
-  (use talikko.työkalu)
-  (use talikko.env))
+  (use gauche.process)
+  (use talikko))
 (select-module talikko.commands.update)
 
 ; update {{{
