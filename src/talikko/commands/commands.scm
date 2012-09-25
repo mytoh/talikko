@@ -12,11 +12,10 @@
 (select-module talikko.commands.commands)
 
 (define-macro (commands)
-  (for-each
+  `(for-each
     print
-    `,(map
+    ',(map
         (lambda (path) (path-sans-extension path))
         (directory-list (build-path (sys-dirname (current-load-path))
-                                    "commands")  
-                        :children? #t)))
-  )
+                                    "commands")
+                        :children? #t))))
