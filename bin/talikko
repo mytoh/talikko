@@ -4,9 +4,11 @@
 
 (use talikko.cli :prefix cli:)
 (use util.match)
+(use file.util)
 
 (define (main args)
-  (cli:runner args))
+  (cli:runner args )
+  )
 
 ; vim: filetype=scheme
 

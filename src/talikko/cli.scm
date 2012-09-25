@@ -12,7 +12,7 @@
 (define (usage status)
   (exit status "usage: ~a <command> <package-name>\n" "talikko"))
 
-(define (runner args)
+(define (runner args )
   (let-args (cdr args)
     ((do-search "S|search=s")
      (#f "h|help" (usage 0))
@@ -37,6 +37,8 @@
            (search (cadr rest)))
           ("srcup"
            (update-source-tree))
+          ("commands"
+           (commands ))
           (_ (usage 1))))))
   0)
 

@@ -9,6 +9,7 @@
     talikko.commands.install
     talikko.commands.deinstall
     talikko.commands.reinstall
+    talikko.commands.commands
     )
   )
 (select-module talikko.commands)
