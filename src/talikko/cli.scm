@@ -27,7 +27,7 @@
            (info (cadr rest)))
           ((or "update" "up")
            (update))
-          ("install"
+          ((or "install" "i")
            (install (cadr rest)))
           ((or "deinstall" "remove" "rm")
            (deinstall-package (cadr rest)))
