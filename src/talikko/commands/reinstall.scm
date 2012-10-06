@@ -6,6 +6,7 @@
     reinstall)
    (use file.util)
    (use text.csv)
+   (use maali)
    (require-extension (srfi 1 11 13))
    (use talikko)
    (use talikko.commands.deinstall)
@@ -16,9 +17,9 @@
 ; reinstall {{{
 (define (reinstall package)
   (current-directory (build-path ports-directory package))
-  (print (string-append (colour-string colour-symbol ":: ")
-                        (colour-string colour-message "Reinstalling ")
-                        (colour-string colour-package package)))
+  (print (string-append (paint ":: " colour-symbol)
+                        (paint "Reinstalling " colour-message)
+                        (paint package colour-package )))
   (run-command-sudo '(make clean))
   (run-command-sudo '(make config))
   (colour-command "sudo make"

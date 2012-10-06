@@ -7,6 +7,7 @@
    (use file.util)
    (use text.csv)
    (require-extension (srfi 1 11 13))
+   (use maali)
    (use talikko)
    )
 (select-module talikko.commands.search)
@@ -29,16 +30,16 @@
 
 (define (fetch-index-file)
   (when (not (file-exists? index-file))
-    (print (string-append (colour-string colour-symbol ":: ")
-                          (colour-string colour-message "Fetching INDEX file")))
+    (print (string-append (paint ":: " colour-symbol)
+                          (paint "Fetching INDEX file" colour-message)))
     (with-cwd ports-directory
               (run-command-sudo '(make fetchindex)))))
 
 (define (search package)
   (fetch-index-file)
-  (print (string-append (colour-string colour-symbol ":: ")
-                        (colour-string colour-message "Searching ")
-                        (colour-string colour-package package)))
+  (print (string-append (paint ":: " colour-symbol)
+                        (paint "Searching " colour-message)
+                        (paint package colour-package)))
   (let1 found-list (search-find-package package)
     (for-each
       (lambda (x)
@@ -58,15 +59,13 @@
             (display
               (string-concatenate
                 `(" "
-                  ,(colour-string colour-package-category
-                                  category)
+                  ,(paint category colour-package-category)
                   "/"
-                  ,(colour-string colour-package
-                                  name))))
+                  ,(paint name colour-package))))
             (print
-              (string-append " [" (colour-string colour-package-version version) "]"))
+              (string-append " [" (paint version colour-package-version ) "]"))
             (print
-              (string-append "    " (colour-string 244  (cadddr x)))))))
+              (string-append "    " (paint (cadddr x) 244  ))))))
       found-list)))
 
 ; }}}

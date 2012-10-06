@@ -6,6 +6,7 @@
     update
     update-source-tree)
   (use file.util)
+  (use maali)
   ;; internal libs
   (use gauche.process)
   (use talikko))
@@ -17,26 +18,26 @@
     ((file-exists? "/usr/ports")
      (cond
        ((file-exists? "/usr/ports/.svn")
-        (print (string-append (colour-string colour-symbol ":: ")
-                              (colour-string colour-message "Updating ports tree")))
+        (print (string-append (paint ":: " colour-symbol)
+                              (paint "Updating ports tree" colour-message)))
         (run-command-sudo '(svn up /usr/ports))
         (fetch-index-file))
        ((file-exists? "/usr/ports/.git")
         (current-directory "/usr/ports")
-        (print (string-append (colour-string colour-symbol ":: ")
-                              (colour-string colour-message "Updating ports tree")))
+        (print (string-append (paint ":: " colour-symbol)
+                              (paint "Updating ports tree" colour-message)))
         (run-command-sudo '(git pull))
         (fetch-index-file))))
     (else
-      (print (string-append (colour-string colour-symbol ":: ")
-                            (colour-string colour-message "Get ports tree")))
+      (print (string-append (paint ":: " colour-symbol)
+                            (paint "Get ports tree" colour-message)))
       (run-command-sudo '(svn checkout -q http://svn.freebsd.org/ports/head /usr/ports))
       (fetch-index-file))))
 
 (define (fetch-index-file)
   (when (not (file-exists? index-file))
-    (print (string-append (colour-string colour-symbol ":: ")
-                          (colour-string colour-message "Fetching INDEX file")))
+    (print (string-append (paint ":: " colour-symbol)
+                          (paint "Fetching INDEX file" colour-message)))
     (with-cwd ports-directory
               (run-command-sudo '(make fetchindex)))))
 ; }}}
@@ -44,8 +45,8 @@
 ;; srcup {{{
 ;; update kernel source
 (define (update-source-tree)
-  (print (string-append (colour-string colour-symbol ":: ")
-                        (colour-string colour-message "Updating source tree")))
+  (print (string-append (paint ":: " colour-symbol)
+                        (paint "Updating source tree" colour-message )))
   (cond
     ((file-exists? "/usr/src")
      (cond

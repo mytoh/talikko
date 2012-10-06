@@ -6,6 +6,7 @@
     info)
    (use file.util)
    (require-extension (srfi 1 13))
+   (use maali)
    ;; internal libs
    (use talikko.väri)
    (use talikko.env))
@@ -41,16 +42,17 @@
   (let ((lst (info-find-packages name)))
     (cond
       ((null? lst)
-       (print (colour-string colour-message "no package found")))
+       (print (paint "no package found" colour-message)))
       (else
         (map (lambda (x)
                (print
                  (string-concatenate
                    `(" "
-                     ,(colour-string colour-package (car x))
+                     ,(paint (car x) colour-package)
                      " "
                      "["
-                     ,(colour-string 172 (cadr x)) "]")))
+                     ,(paint (cadr x) 172)
+                     "]")))
                (display "    ")
                (display (caddr x))
                (newline))

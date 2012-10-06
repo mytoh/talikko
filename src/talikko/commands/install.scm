@@ -6,6 +6,7 @@
    (use file.util)
    (use text.csv)
    (require-extension (srfi 1 11 13))
+   (use maali)
    (use talikko)
    )
 (select-module talikko.commands.install)
@@ -14,9 +15,9 @@
 ; install {{{
 (define (install package)
   (with-cwd (build-path ports-directory package)
-            (print (string-append (colour-string colour-symbol ":: ")
-                           (colour-string colour-message "Installing ")
-                           (colour-string colour-package package)))
+            (print (string-append (paint ":: " colour-symbol)
+                           (paint "Installing " colour-message)
+                           (paint package colour-package )))
             (run-command-sudo '(make clean))
             (run-command-sudo '(make config-recursive))
             (colour-command "sudo make install clean"
