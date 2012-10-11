@@ -31,7 +31,7 @@
            (install (cadr rest)))
           ((or "deinstall" "remove" "rm")
            (deinstall-package (cadr rest)))
-          ("reinstall"
+          ((or "re" "reinstall")
            (reinstall (cadr rest)))
           ("search"
            (search (cadr rest)))
