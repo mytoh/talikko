@@ -16,7 +16,8 @@
 
 ; reinstall {{{
 (define (reinstall package)
-  (current-directory (build-path ports-directory package))
+  (let ((package-path (build-path ports-directory package)))
+  (current-directory package-path)
   (print (string-append (paint ":: " colour-symbol)
                         (paint "Reinstalling " colour-message)
                         (paint package colour-package )))
@@ -32,5 +33,5 @@
                   #/^(===>  )Patching (.*$)/   "[38;5;99m *[0m Applying patch \\2"
                   #/^===>/   "[38;5;39m>>>[0m"
                   #/^=>/   "[38;5;99m>>>[0m"
-                  #/\*\*\*.*$/    "[38;5;3m\\0[0m"))
+                  #/\*\*\*.*$/    "[38;5;3m\\0[0m")))
 ; }}}
