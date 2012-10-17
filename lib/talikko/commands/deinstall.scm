@@ -14,9 +14,9 @@
 ; deinstall {{{
 (define (deinstall-package package)
   (current-directory (build-path ports-directory package))
-  (print (concat  (colour-string colour-symbol ":: ")
+  (print (colour-string colour-symbol ":: ")
                   (colour-string colour-message "Deinstalling ")
-                  (colour-string colour-package package)))
+                  (colour-string colour-package package))
   (colour-command "sudo make deinstall"
                   #/^(===>  )Patching (.*$)/   "[38;5;99m *[0m Applying patch \\2"
                   #/^===>/   "[38;5;39m>>>[0m"
