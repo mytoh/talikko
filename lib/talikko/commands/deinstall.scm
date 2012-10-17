@@ -3,7 +3,7 @@
 
 (define-module talikko.commands.deinstall
   (export
-    deinstall)
+    deinstall-package)
    (use file.util)
    (use text.csv)
    (require-extension (srfi 1 11 13))
@@ -12,7 +12,7 @@
 (select-module talikko.commands.deinstall)
 
 ; deinstall {{{
-(define (deinstall package)
+(define (deinstall-package package)
   (current-directory (build-path ports-directory package))
   (print (concat  (colour-string colour-symbol ":: ")
                   (colour-string colour-message "Deinstalling ")
