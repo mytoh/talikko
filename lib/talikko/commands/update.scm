@@ -48,7 +48,7 @@
   (cond
     ((file-exists? "/usr/src")
      (print (string-append (paint ":: " colour-symbol)
-                           (paint "Updating source tree" colour-message )))
+                           (paint "Updating source tree" colour-message)))
      (cond
        ((file-exists? "/usr/src/.svn")
         (run-command-sudo '(svn up /usr/src)))
