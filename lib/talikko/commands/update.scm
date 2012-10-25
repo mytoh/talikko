@@ -45,10 +45,10 @@
 ;; srcup {{{
 ;; update kernel source
 (define (update-source-tree)
-  (print (string-append (paint ":: " colour-symbol)
-                        (paint "Updating source tree" colour-message )))
   (cond
     ((file-exists? "/usr/src")
+     (print (string-append (paint ":: " colour-symbol)
+                           (paint "Updating source tree" colour-message )))
      (cond
        ((file-exists? "/usr/src/.svn")
         (run-command-sudo '(svn up /usr/src)))
@@ -57,6 +57,7 @@
                      :wait #t
                      :directory "/usr/src"))))
     (else
+      (print (paint "cloning source tree from svn"))
       (run-command-sudo '(svn co -q http://svn.freebsd.org/base/head /usr/src)))))
 ;; }}}
 
