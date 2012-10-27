@@ -1,5 +1,6 @@
 
 (spec 
+  '(name "talikko")
   '(files ("lib/**/*.scm"
         "bin/*"
         "*.lehspec"
