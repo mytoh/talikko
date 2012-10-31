@@ -36,7 +36,7 @@
               (run-command-sudo '(make fetchindex)))))
 
 (define (search package)
-  (fetch-index-file)
+  ; (fetch-index-file)
   (print (string-append (paint ":: " colour-symbol)
                         (paint "Searching " colour-message)
                         (paint package colour-package)))
