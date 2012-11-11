@@ -19,7 +19,7 @@
        (directory-list package-directory :children? #t)))
 
 (define (info-find-packages name)
-  #| display installed package information|#
+  ;; display installed package information
   (let1 list-packages (lambda (n)
                         (filter
                           (lambda (s)
