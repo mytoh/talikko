@@ -1,14 +1,15 @@
-":"; exec gosh -- $0 "$@"
+#!/usr/bin/env mosh
 
-;; FreeBSD ports tool
-
-(use talikko.cli :prefix cli:)
-(use util.match)
-(use file.util)
+(import
+  (scheme base)
+  (scheme process-context)
+  (prefix (talikko cli)
+    cli.))
 
 (define (main args)
-  (cli:runner args )
-  )
+  (cli.runner args))
 
-; vim: filetype=scheme
+(main (command-line))
 
+
+;; vim:filetype=scheme
