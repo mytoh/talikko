@@ -9,7 +9,7 @@
     (only (srfi :13 strings)
           string-join)
     (loitsu message)
-    (mosh file)
+    (loitsu file)
     (except (mosh)
             read-line)
     (loitsu process))
@@ -37,13 +37,13 @@
          (set-current-directory! "/usr/src")
          (cond
            ((file-exists? "/usr/src/.git")
-            (run-command '( sudo git pull )))
+            (run-command '(sudo git pull)))
            ((file-exists? "/usr/src/.svn")
             (let ((out (process-output->string "sudo svn up /usr/src")))
               (format #t "~a\n" out)))))
         (else
           (ohei "cloning source tree from svn" )
-          (run-command '(sudo svn co -q http://svn.freebsd.org/base/head /usr/src ))))))
+          (run-command '(sudo svn co -q http://svn.freebsd.org/base/head /usr/src))))))
 
   ; }}}
 
