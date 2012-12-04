@@ -8,7 +8,8 @@
     colour-package-description
     colour-package-version)
   (import
-    (scheme base))
+    (rnrs)
+    )
 
 
   (begin

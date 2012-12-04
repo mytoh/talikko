@@ -3,9 +3,8 @@
   (export
     search)
   (import
-    (scheme base)
-    (scheme file)
-    (scheme write)
+    (except (rnrs)
+            filter)
     (only (srfi :1 lists)
           last
           drop-right

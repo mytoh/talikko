@@ -2,8 +2,7 @@
 (library (talikko commands commands)
   (export commands)
   (import
-    (scheme base)
-    (scheme process-context)
+    (rnrs)
     (only (srfi :13 strings)
       string-join)
     (mosh file)

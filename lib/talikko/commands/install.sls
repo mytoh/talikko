@@ -2,9 +2,7 @@
 (library (talikko commands install)
   (export install)
   (import
-    (scheme base)
-    (scheme file)
-    (scheme write)
+    (rnrs)
     (loitsu message)
     (loitsu file)
     (loitsu process))

@@ -3,9 +3,7 @@
   (export update
           update-source-tree)
   (import
-    (scheme base)
-    (scheme file)
-    (scheme write)
+    (rnrs)
     (only (srfi :13 strings)
           string-join)
     (loitsu message)

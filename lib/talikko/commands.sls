@@ -10,7 +10,7 @@
     info
     search)
   (import
-    (scheme base)
+    (rnrs)
     (talikko commands commands)
     (talikko commands update)
     (talikko commands search)

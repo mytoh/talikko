@@ -3,9 +3,8 @@
   (export
     info)
   (import
-    (scheme base)
-    (scheme file)
-    (scheme write)
+    (except (rnrs)
+            find)
     (only (srfi :1)
           find)
     (srfi :2 and-let*)

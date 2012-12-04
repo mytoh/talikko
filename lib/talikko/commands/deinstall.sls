@@ -3,9 +3,7 @@
 (library (talikko commands deinstall)
   (export deinstall)
   (import
-    (scheme base)
-    (scheme file)
-    (scheme write)
+    (rnrs)
     (only (srfi :13 strings)
           string-join)
     (loitsu message)

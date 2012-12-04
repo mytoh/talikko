@@ -2,8 +2,7 @@
   (export
     reinstall)
   (import
-    (scheme base)
-    (scheme write)
+    (rnrs)
     (talikko commands deinstall)
     (loitsu file)
     (loitsu message)
