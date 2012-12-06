@@ -28,10 +28,8 @@
 
     (define (search args)
       (let ((package (caddr args)))
-        (ohei
-          (string-append
-            "Searching "
-            package))
+        (ohei (string-append
+                "Searching " package))
         (let ((found-list (find-package package)))
           (for-each
             (lambda (x)
@@ -59,7 +57,7 @@
 
     (define (find-package package)
       (when (not (file-exists? index-file))
-        (run-command '(sudo make fetchindex))))
+        (run-command '(sudo make fetchindex)))
       (let ((index-list (map (lambda (s) (string-split s #\|))
                              (file->string-list index-file))))
         (filter (lambda (x)
