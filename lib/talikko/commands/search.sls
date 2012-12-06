@@ -58,6 +58,8 @@
             found-list))))
 
     (define (find-package package)
+      (when (not (file-exists? index-file))
+        (run-command '(sudo make fetchindex))))
       (let ((index-list (map (lambda (s) (string-split s #\|))
                              (file->string-list index-file))))
         (filter (lambda (x)
