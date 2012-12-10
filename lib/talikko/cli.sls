@@ -30,7 +30,7 @@
       ;  (update))
       (else
         (cond
-          ((find-short-comamnd (cadr args) "update"))))
+          ((find-short-command (cadr args) "update"))))
       )
     ))
 
