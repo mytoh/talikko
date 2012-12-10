@@ -4,6 +4,7 @@
   (import
     (rnrs)
     (match)
+    (loitsu cli)
     (talikko commands))
 
   (begin
@@ -25,8 +26,11 @@
        (update-source-tree))
       ("commands"
        (commands))
-      ((or "update" "up")
-       (update))
+      ; ((or "update" "up")
+      ;  (update))
+      (else
+        (cond
+          ((find-short-comamnd (cadr args) "update"))))
       )
     ))
 
