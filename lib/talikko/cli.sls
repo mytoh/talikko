@@ -10,7 +10,7 @@
   (begin
 
     (define (runner args)
-      (match (cadr args)
+      (match-short-command (cadr args)
         ; commands
         ("info"
          (info args))
@@ -26,16 +26,6 @@
          (update-source-tree))
         ("commands"
          (commands))
-        ; ((or "update" "up")
-        ;  (update))
-        (else
-          (cond
-            ((find-short-command (cadr args) "update")
-             (update))))
-        )
-      ))
-
-
-
-
-  )
+        ((or "update" "up")
+         (update))))
+    ))
