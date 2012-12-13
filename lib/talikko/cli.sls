@@ -3,7 +3,6 @@
   (export runner)
   (import
     (rnrs)
-    (match)
     (loitsu cli)
     (talikko commands))
 
