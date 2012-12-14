@@ -18,6 +18,11 @@
 
   (begin
 
+    (define (package-total-number)
+      (length
+        (filter (lambda (p) (file-directory? p))
+                (directory-list/path "/var/db/pkg"))))
+
     (define (package-installed? package)
       (find
         (lambda (p)
@@ -27,20 +32,22 @@
     (define (info args)
       (let ((packages (cddr args)))
         (if (null? packages)
-          (let ((installed-packages (directory-list2 "/var/db/pkg")))
-            (display packages)
-            (newline)
-            (display installed-packages))
+          (display (package-total-number))
+          (newline)
+          ; (let ((installed-packages (directory-list2 "/var/db/pkg")))
+          ;   (display packages)
+          ;   (newline)
+          ;   (display installed-packages))
           (for-each
             (lambda (p)
               (let ((pac (package-installed? p)))
                 (cond
                   (pac
-                  (display (paint pac 172))
-                  (newline))
+                    (display (paint pac 172))
+                    (newline))
                   (else
-                  (display (string-append (paint p 172) " is not installed"))
-                  (newline)))))
+                    (display (string-append (paint p 172) " is not installed"))
+                    (newline)))))
             packages))))
 
     ))
