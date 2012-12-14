@@ -26,7 +26,7 @@
          (run-command '(sudo svn up /usr/ports)))
         (else
           (ohei "Get ports tree")
-          (run-command '(sudo "svn" "checkout" "-q" "http://svn.freebsd.org/ports/head" "/usr/ports")))))
+          (run-command '(sudo "svn" "checkout" "-q" "svn://svn0.us-west.freebsd.org/ports" "/usr/ports")))))
 
     (define (update-source-tree)
       (cond
@@ -41,7 +41,7 @@
               (format #t "~a\n" out)))))
         (else
           (ohei "cloning source tree from svn" )
-          (run-command '(sudo svn co -q http://svn.freebsd.org/base/head /usr/src))))))
+          (run-command '(sudo svn co -q svn://svn0.us-west.freebsd.org/base/head  /usr/src))))))
 
   ; }}}
 
