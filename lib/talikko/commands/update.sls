@@ -41,11 +41,6 @@
               (format #t "~a\n" out)))))
         (else
           (ohei "cloning source tree from svn" )
-          (run-command '(sudo svn co -q svn://svn0.us-west.freebsd.org/base/head  /usr/src))))))
+          (run-command '(sudo svn co -q svn://svn0.us-west.freebsd.org/base/head  /usr/src)))))
 
-  ; }}}
-
-
-
-
-  )
+    ) )
