@@ -16,15 +16,15 @@
 
     (define(update)
       (cond
-        ((file-exists? "/usr/ports/.git")
+        ((file-exists? "/usr/ports")
          (set-current-directory! "/usr/ports")
          (ohei "updating ports tree" )
-         (run-command '(sudo git pull)))
-        ((file-exists? "/usr/ports/.svn")
-         (set-current-directory! "/usr/ports")
-         (ohei "updating ports tree" )
-         (let ((out (process-output->string "sudo svn up /usr/ports")))
-           (format #t "~a\n" out)))
+         (cond
+           ((file-exists? "/usr/ports/.git")
+            (run-command '(sudo git pull)))
+           ((file-exists? "/usr/ports/.svn")
+            (let ((out (process-output->string "sudo svn up /usr/ports")))
+              (format #t "~a\n" out)))))
         (else
           (ohei "Get ports tree")
           (run-command '(sudo "svn" "checkout" "-q" "svn://svn0.us-west.freebsd.org/ports/head" "/usr/ports")))))
