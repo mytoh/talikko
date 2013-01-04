@@ -1,6 +1,6 @@
 
 (library (talikko commands update)
-  (export update
+  (export update-ports
           update-source-tree)
   (import
     (rnrs)
@@ -14,34 +14,29 @@
 
   (begin
 
-    (define(update)
+    (define(update base addr)
+      (let ((base-dir (string-append "/usr/" base)))
       (cond
-        ((file-exists? "/usr/ports")
-         (set-current-directory! "/usr/ports")
-         (ohei "updating ports tree" )
+        ((file-exists? base-dir)
+         (set-current-directory! base-dir)
+         (ohei (string-append "updating " base " tree" ))
          (cond
-           ((file-exists? "/usr/ports/.git")
+           ((file-exists? (string-append base-dir "/.git"))
             (run-command '(sudo git pull)))
-           ((file-exists? "/usr/ports/.svn")
-            (let ((out (process-output->string "sudo svn up /usr/ports")))
+           ((file-exists? (string-append base-dir "/.svn"))
+            (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
               (format #t "~a\n" out)))))
         (else
-          (ohei "Get ports tree")
-          (run-command '(sudo "svn" "checkout" "-q" "svn://svn0.us-west.freebsd.org/ports/head" "/usr/ports")))))
+          (ohei (string-append "Get " base " tree"))
+          (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir))))))
+
+
+    (define(update-ports)
+      (update "ports"
+              "svn://svn0.us-west.freebsd.org/ports/head"))
 
     (define (update-source-tree)
-      (cond
-        ((file-exists? "/usr/src")
-         (ohei "update source tree" )
-         (set-current-directory! "/usr/src")
-         (cond
-           ((file-exists? "/usr/src/.git")
-            (run-command '(sudo git pull)))
-           ((file-exists? "/usr/src/.svn")
-            (let ((out (process-output->string "sudo svn up /usr/src")))
-              (format #t "~a\n" out)))))
-        (else
-          (ohei "cloning source tree from svn" )
-          (run-command '(sudo svn co -q svn://svn0.us-west.freebsd.org/base/head  /usr/src)))))
+      (update "src"
+              "svn://svn0.us-west.freebsd.org/base/head"))
 
     ))

@@ -26,5 +26,5 @@
         ("commands"
          (commands))
         ((or "update" "up")
-         (update))))
+         (update-ports))))
     ))

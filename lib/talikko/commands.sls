@@ -2,7 +2,7 @@
 (library (talikko commands)
   (export
     commands
-    update
+    update-ports
     update-source-tree
     install
     deinstall
