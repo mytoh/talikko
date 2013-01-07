@@ -16,19 +16,19 @@
 
     (define(update base addr)
       (let ((base-dir (string-append "/usr/" base)))
-      (cond
-        ((file-exists? base-dir)
-         (set-current-directory! base-dir)
-         (ohei (string-append "updating " base " tree" ))
-         (cond
-           ((file-exists? (string-append base-dir "/.git"))
-            (run-command '(sudo git pull)))
-           ((file-exists? (string-append base-dir "/.svn"))
-            (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
-              (format #t "~a\n" out)))))
-        (else
-          (ohei (string-append "Get " base " tree"))
-          (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir))))))
+        (cond
+          ((file-exists? base-dir)
+           (set-current-directory! base-dir)
+           (ohei (string-append "updating " base " tree" ))
+           (cond
+             ((file-exists? (string-append base-dir "/.git"))
+              (run-command '(sudo git pull)))
+             ((file-exists? (string-append base-dir "/.svn"))
+              (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
+                (format #t "~a\n" out)))))
+          (else
+            (ohei (string-append "Get " base " tree"))
+            (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir))))))
 
 
     (define(update-ports)
