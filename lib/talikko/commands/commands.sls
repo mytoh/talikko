@@ -2,12 +2,14 @@
 (library (talikko commands commands)
   (export commands)
   (import
-    (rnrs)
+    (silta base)
+    (silta process-context)
     (only (srfi :13 strings)
       string-join)
     (mosh file)
     (except (mosh)
-      read-line))
+      read-line
+      include))
 
   (begin
 
@@ -17,5 +19,5 @@
       (map
         (lambda (path) (car (string-split path #\.)))
         (directory-list (string-join `(,(car (command-line)))
-                                     "/")))))) 
+                                     "/"))))))
   )

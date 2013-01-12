@@ -3,8 +3,9 @@
   (export
     search)
   (import
-    (except (rnrs)
-            filter)
+    (silta base)
+    (silta cxr)
+    (silta write)
     (only (srfi :1 lists)
           last
           drop-right

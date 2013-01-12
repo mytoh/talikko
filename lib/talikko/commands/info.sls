@@ -3,9 +3,10 @@
   (export
     info)
   (import
-    (except (rnrs)
-            find)
+    (silta base)
+    (silta write)
     (only (srfi :1)
+          filter
           find)
     (srfi :2 and-let*)
     (irregex)

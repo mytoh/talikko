@@ -2,7 +2,7 @@
 (library (talikko commands install)
   (export install)
   (import
-    (rnrs)
+    (silta base)
     (loitsu message)
     (loitsu file)
     (loitsu process))

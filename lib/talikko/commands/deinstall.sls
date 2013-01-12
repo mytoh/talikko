@@ -3,7 +3,7 @@
 (library (talikko commands deinstall)
   (export deinstall)
   (import
-    (rnrs)
+    (silta base)
     (only (srfi :13 strings)
           string-join)
     (loitsu message)
