@@ -9,6 +9,7 @@
     (loitsu message)
     (loitsu file)
     (except (mosh)
+            include
             read-line)
     (loitsu process))
 
