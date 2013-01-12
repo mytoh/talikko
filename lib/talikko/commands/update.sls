@@ -3,7 +3,7 @@
   (export update-ports
           update-source-tree)
   (import
-    (rnrs)
+    (silta base)
     (only (srfi :13 strings)
           string-join)
     (loitsu message)
