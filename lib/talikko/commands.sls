@@ -10,7 +10,7 @@
     info
     search)
   (import
-    (rnrs)
+    (silta base)
     (talikko commands commands)
     (talikko commands update)
     (talikko commands search)

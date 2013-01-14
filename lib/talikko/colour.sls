@@ -8,7 +8,7 @@
     colour-package-description
     colour-package-version)
   (import
-    (rnrs)
+    (silta base)
     )
 
 

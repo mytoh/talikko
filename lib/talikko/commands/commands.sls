@@ -19,5 +19,5 @@
       (map
         (lambda (path) (car (string-split path #\.)))
         (directory-list (string-join `(,(car (command-line)))
-                                     "/"))))))
-  )
+                                     "/")))))
+  ))

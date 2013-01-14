@@ -2,7 +2,7 @@
   (export
     reinstall)
   (import
-    (rnrs)
+    (silta base)
     (talikko commands deinstall)
     (loitsu file)
     (loitsu message)

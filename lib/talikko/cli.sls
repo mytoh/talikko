@@ -2,7 +2,7 @@
 (library (talikko cli)
   (export runner)
   (import
-    (rnrs)
+    (silta base)
     (loitsu cli)
     (talikko commands))
 
