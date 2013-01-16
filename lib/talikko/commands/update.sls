@@ -49,8 +49,8 @@
 
     (define (update-source-tree)
       (update "src"
-              "git://github.com/freebsd/freebsd"
-              ; "svn://svn0.us-west.freebsd.org/base/head"
+              "svn://svn0.us-west.freebsd.org/base/head"
+              ; "git://github.com/freebsd/freebsd"
               ))
 
     ))
