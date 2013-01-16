@@ -40,7 +40,7 @@
               ((url-svn? addr)
                (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir)))
               ((url-git? addr)
-               (run-command `(sudo git clone addr ,base-dir))))))))
+               (run-command `(sudo git clone ,addr ,base-dir))))))))
 
 
     (define(update-ports)
