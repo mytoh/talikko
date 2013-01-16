@@ -5,6 +5,7 @@
   (import
     (silta base)
     (only (srfi :13 strings)
+          string-contains
           string-join)
     (loitsu message)
     (loitsu file)
@@ -14,6 +15,12 @@
     (loitsu process))
 
   (begin
+
+    (define (url-git? url)
+      (string-contains url "git://"))
+
+    (define (url-svn? url)
+      (string-contains url "svn://"))
 
     (define(update base addr)
       (let ((base-dir (string-append "/usr/" base)))
@@ -29,7 +36,11 @@
                 (format #t "~a\n" out)))))
           (else
             (ohei (string-append "Get " base " tree"))
-            (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir))))))
+            (cond
+              ((url-svn? addr)
+               (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir)))
+              ((url-git? addr)
+               (run-command `(sudo git clone addr ,base-dir))))))))
 
 
     (define(update-ports)
@@ -38,6 +49,8 @@
 
     (define (update-source-tree)
       (update "src"
-              "svn://svn0.us-west.freebsd.org/base/head"))
+              "git://github.com/freebsd/freebsd"
+              ; "svn://svn0.us-west.freebsd.org/base/head"
+              ))
 
     ))
