@@ -22,6 +22,15 @@
     (define (url-svn? url)
       (string-contains url "svn://"))
 
+    (define  (get-source url base)
+      (let ((base-dir (string-append "/usr/" base)))
+        (ohei (string-append "get" ))
+        (cond
+          ((url-svn? addr)
+           (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir)))
+          ((url-git? addr)
+           (run-command `(sudo git clone ,addr ,base-dir))))))
+
     (define(update base addr)
       (let ((base-dir (string-append "/usr/" base)))
         (cond
@@ -35,12 +44,7 @@
               (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
                 (format #t "~a\n" out)))))
           (else
-            (ohei (string-append "Get " base " tree"))
-            (cond
-              ((url-svn? addr)
-               (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir)))
-              ((url-git? addr)
-               (run-command `(sudo git clone ,addr ,base-dir))))))))
+            (get-source addr base)))))
 
 
     (define(update-ports)

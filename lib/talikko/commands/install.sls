@@ -18,5 +18,4 @@
             (run-command '(sudo make install)))
           packages)))
 
-    )
-  )
+    ))
