@@ -1,7 +1,6 @@
-
 (library (talikko commands update)
-  (export update-ports
-          update-source-tree)
+    (export update-ports
+            update-source-tree)
   (import
     (silta base)
     (only (srfi :13 strings)
@@ -22,29 +21,29 @@
     (define (url-svn? url)
       (string-contains url "svn://"))
 
-    (define  (get-source url base)
+    (define (get-source url base)
       (let ((base-dir (string-append "/usr/" base)))
         (ohei (string-append "get" ))
         (cond
-          ((url-svn? addr)
-           (run-command `(sudo "svn" "checkout" "-q" ,addr ,base-dir)))
-          ((url-git? addr)
-           (run-command `(sudo git clone ,addr ,base-dir))))))
+            ((url-svn? url)
+             (run-command `(sudo "svn" "checkout" "-q" ,url ,base-dir)))
+          ((url-git? url)
+           (run-command `(sudo git clone ,url ,base-dir))))))
 
-    (define(update base addr)
+    (define(update base url)
       (let ((base-dir (string-append "/usr/" base)))
         (cond
-          ((file-exists? base-dir)
-           (set-current-directory! base-dir)
-           (ohei (string-append "updating " base " tree" ))
-           (cond
-             ((file-exists? (string-append base-dir "/.git"))
-              (run-command '(sudo git pull)))
-             ((file-exists? (string-append base-dir "/.svn"))
-              (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
-                (format #t "~a\n" out)))))
+            ((file-exists? base-dir)
+             (set-current-directory! base-dir)
+             (ohei (string-append "updating " base " tree" ))
+             (cond
+                 ((file-exists? (string-append base-dir "/.git"))
+                  (run-command '(sudo git pull)))
+               ((file-exists? (string-append base-dir "/.svn"))
+                (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
+                  (format #t "~a\n" out)))))
           (else
-            (get-source addr base)))))
+              (get-source url base)))))
 
 
     (define(update-ports)
@@ -54,7 +53,7 @@
     (define (update-source-tree)
       (update "src"
               "svn://svn0.us-west.freebsd.org/base/head"
-              ; "git://github.com/freebsd/freebsd"
+                                        ; "git://github.com/freebsd/freebsd"
               ))
 
     ))
