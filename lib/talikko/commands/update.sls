@@ -1,11 +1,14 @@
 (library (talikko commands update)
-    (export update-ports
-            update-source-tree)
+    (export
+      update)
   (import
     (silta base)
+    (silta write)
+    (silta cxr)
     (only (srfi :13 strings)
           string-contains
           string-join)
+    (loitsu match)
     (loitsu message)
     (loitsu file)
     (except (mosh)
@@ -30,7 +33,7 @@
           ((url-git? url)
            (run-command `(sudo git clone ,url ,base-dir))))))
 
-    (define(update base url)
+    (define(%update base url)
       (let ((base-dir (string-append "/usr/" base)))
         (cond
             ((file-exists? base-dir)
@@ -47,13 +50,23 @@
 
 
     (define(update-ports)
-      (update "ports"
-              "svn://svn0.us-west.freebsd.org/ports/head"))
+      (%update "ports"
+               "svn://svn0.us-west.freebsd.org/ports/head"))
 
     (define (update-source-tree)
-      (update "src"
-              "svn://svn0.us-west.freebsd.org/base/head"
-                                        ; "git://github.com/freebsd/freebsd"
-              ))
+      (%update "src"
+               "svn://svn0.us-west.freebsd.org/base/head"
+               ;; "git://github.com/freebsd/freebsd"
+               ))
+
+
+    (define (update args)
+      (match (cddr args)
+        (() (update-ports))
+        (("ports")
+         (update-ports))
+        (("source")
+         (update-source-tree))))
+
 
     ))

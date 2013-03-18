@@ -1,6 +1,5 @@
-
 (library (talikko cli)
-  (export runner)
+    (export runner)
   (import
     (silta base)
     (loitsu cli)
@@ -10,7 +9,7 @@
 
     (define (runner args)
       (match-short-command (cadr args)
-        ; commands
+        ;; commands
         ("info"
          (info args))
         ((or "install" "i")
@@ -21,10 +20,8 @@
          (reinstall args))
         ("search"
          (search args))
-        ("srcup"
-         (update-source-tree))
         ("commands"
          (commands))
         ((or "update" "up")
-         (update-ports))))
+         (update args))))
     ))

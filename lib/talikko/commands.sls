@@ -1,14 +1,12 @@
-
 (library (talikko commands)
-  (export
-    commands
-    update-ports
-    update-source-tree
-    install
-    deinstall
-    reinstall
-    info
-    search)
+    (export
+      commands
+      update
+      install
+      deinstall
+      reinstall
+      info
+      search)
   (import
     (silta base)
     (talikko commands commands)
