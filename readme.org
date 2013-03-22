@@ -12,7 +12,7 @@
 ** How will yo use it?
 
 #+begin_src shell
- talikko search text
+$ talikko search text
 #+end_src
 
 ** When and where will you use it?
