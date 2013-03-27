@@ -1,15 +1,13 @@
-
 (library (talikko colour)
-  (export
-    colour-message
-    colour-symbol
-    colour-package
-    colour-package-category
-    colour-package-description
-    colour-package-version)
+    (export
+      colour-message
+      colour-symbol
+      colour-package
+      colour-package-category
+      colour-package-description
+      colour-package-version)
   (import
-    (silta base)
-    )
+    (silta base))
 
 
   (begin
@@ -22,4 +20,4 @@
     (define colour-package-version  142)
     (define colour-package-description  244)
 
-    ) )
+    ))
