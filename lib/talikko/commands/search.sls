@@ -27,32 +27,25 @@
         (string-append "/usr/ports/INDEX-" version)))
 
     (define (search args)
-      (let ((package (caddr args)))
-        (let ((found-list (find-package package)))
-          (for-each
-              (lambda (x)
-                (let ((name (if (< 2 (length (string-split (car x) #\-)))
-                              (string-join
-                                  (drop-right (string-split (car x) #\-) 1)
-                                "-")
-                              (car (string-split (car x) #\-))))
-                      (version (last (string-split (car x) #\-)))
-                      (category (last (string-split (path-dirname (cadr x))
-                                                    #\/)))
-                      (desc (cadddr x)))
-                  (display
-                      (string-append
-                          (paint category 94)
-                        "/"
-                        (paint name 111)))
-                  (format #t " [~a]\n" (paint version 98))
-                  ;; (display
-                  ;;     (string-append " [" (paint version 98) "]"))
-                  ;; (newline)
-                  (display
-                      (string-append "    " desc))
-                  (newline)))
-            found-list))))
+      (let* ((package (caddr args))
+             (found-list (find-package package)))
+        (for-each
+            (lambda (x)
+              (let ((name (if (< 2 (length (string-split (car x) #\-)))
+                            (string-join
+                                (drop-right (string-split (car x) #\-) 1)
+                              "-")
+                            (car (string-split (car x) #\-))))
+                    (version (last (string-split (car x) #\-)))
+                    (category (last (string-split (path-dirname (cadr x))
+                                                  #\/)))
+                    (desc (cadddr x)))
+                (format #t "~a/~a [~a]\n"
+                        (paint category 94)
+                        (paint name 111)
+                        (paint version 58))
+                (format #t "    ~a\n" desc)))
+          found-list)))
 
     (define (get-index)
       (when (not (file-exists? index-file))
