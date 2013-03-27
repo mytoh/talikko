@@ -41,9 +41,9 @@
                       (desc (cadddr x)))
                   (display
                       (string-append
-                          " " (paint category 94)
-                          "/"
-                          (paint name 111)))
+                          (paint category 94)
+                        "/"
+                        (paint name 111)))
                   (display
                       (string-append " [" (paint version 98) "]"))
                   (newline)
