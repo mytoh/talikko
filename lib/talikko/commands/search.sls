@@ -16,20 +16,17 @@
     (loitsu message)
     (loitsu file)
     (loitsu process)
-    (loitsu string)
-    )
+    (loitsu string))
 
   (begin
 
     (define index-file
       (let ((version (car (string-split (process-output->string "uname -r")
-                                         #\.))))
+                                        #\.))))
         (string-append "/usr/ports/INDEX-" version)))
 
     (define (search args)
       (let ((package (caddr args)))
-        (ohei (string-append
-                  "Searching " package))
         (let ((found-list (find-package package)))
           (for-each
               (lambda (x)
@@ -55,9 +52,16 @@
                   (newline)))
             found-list))))
 
-    (define (find-package package)
+    (define (get-index)
       (when (not (file-exists? index-file))
-        (run-command '(sudo make fetchindex)))
+        (ohei "fetching index file")
+        (set-current-directory! "/usr/ports")
+        (run-command '(sudo make fetchindex))))
+
+    (define (find-package package)
+      (get-index)
+      (ohei (string-append
+                "Searching " package))
       (let ((index-list (map (lambda (s) (string-split s #\|))
                           (file->string-list index-file))))
         (filter (lambda (x)
