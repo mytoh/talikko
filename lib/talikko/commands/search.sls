@@ -28,15 +28,16 @@
 
     (define (search args)
       (let* ((package (caddr args))
-             (found-list (find-package package)))
+             (found-list (find-package package))
+             (split-dash (lambda (x) (string-split x #\-))))
         (for-each
             (lambda (x)
-              (let ((name (if (< 2 (length (string-split (car x) #\-)))
+              (let ((name (if (< 2 (length (split-dash (car x))))
                             (string-join
-                                (drop-right (string-split (car x) #\-) 1)
+                                (drop-right (split-dash (car x)) 1)
                               "-")
-                            (car (string-split (car x) #\-))))
-                    (version (last (string-split (car x) #\-)))
+                            (car (split-dash (car x)))))
+                    (version (last (split-dash (car x))))
                     (category (last (string-split (path-dirname (cadr x))
                                                   #\/)))
                     (desc (cadddr x)))
