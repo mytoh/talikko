@@ -10,9 +10,14 @@
     (define (help)
       (display
           "Usage: talikko <command>
-        install
-        reinstall
-        search <name>")
+                 commands
+                 update
+                 install
+                 deinstall
+                 reinstall
+                 info
+                 search
+                 help")
       (newline))
 
     ))

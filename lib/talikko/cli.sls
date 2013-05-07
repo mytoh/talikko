@@ -2,6 +2,7 @@
     (export runner)
   (import
     (silta base)
+    (silta write)
     (loitsu cli)
     (talikko commands))
 
@@ -9,10 +10,10 @@
 
     (define (safe-cadr x)
       (cond ((and (pair? x)
-               (< (length x) 1))
+               (> (length x) 1))
              (cadr x))
             (else
-                '())))
+                "dummy")))
 
     (define (runner args)
       (match-short-command (safe-cadr args)

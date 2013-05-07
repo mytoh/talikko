@@ -32,21 +32,17 @@
     (define (info args)
       (let ((packages (cddr args)))
         (cond
-            ((null? packages)
-             (display (package-total-number))
-             (newline))
+          ((null? packages)
+           (display (package-total-number))
+           (newline))
           (else
-                                        ; (let ((installed-packages (directory-list2 "/var/db/pkg")))
-                                        ;   (display packages)
-                                        ;   (newline)
-                                        ;   (display installed-packages))
               (for-each
                   (lambda (p)
                     (let ((pac (package-installed? p)))
                       (cond
-                          (pac
-                           (display (paint pac 172))
-                           (newline))
+                        (pac
+                         (display (paint pac 172))
+                         (newline))
                         (else
                             (display (string-append (paint p 172) " is not installed"))
                           (newline)))))
