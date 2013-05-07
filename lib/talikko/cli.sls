@@ -8,7 +8,7 @@
   (begin
 
     (define (safe-cadr x)
-      (cond ((list? x)
+      (cond ((< (length x) 1)
              (cadr x))
             (else
                 '())))
