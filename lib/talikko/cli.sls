@@ -7,8 +7,14 @@
 
   (begin
 
+    (define (safe-cadr x)
+      (cond ((list? x)
+             (cadr x))
+            (else
+                '())))
+
     (define (runner args)
-      (match-short-command (cadr args)
+      (match-short-command (safe-cadr args)
         ;; commands
         ("info"
          (info args))
