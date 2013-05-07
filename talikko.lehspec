@@ -1,18 +1,19 @@
 
 (spec
-  (name "talikko")
-  (description "freebsd ports utility")
-  (homepage "http://github.com/mytoh/talikko")
-  (files ("lib/talikko/cli.sls"
-          "lib/talikko/colour.sls"
-          "lib/talikko/commands.sls"
-          "lib/talikko/commands/commands.sls"
-          "lib/talikko/commands/deinstall.sls"
-          "lib/talikko/commands/info.sls"
-          "lib/talikko/commands/install.sls"
-          "lib/talikko/commands/reinstall.sls"
-          "lib/talikko/commands/search.sls"
-          "lib/talikko/commands/update.sls"
-          "bin/talikko"
-          "talikko.lehspec"
-          )))
+ (name "talikko")
+ (description "freebsd ports utility")
+ (homepage "http://github.com/mytoh/talikko")
+ (files ("lib/talikko/cli.sls"
+         "lib/talikko/colour.sls"
+         "lib/talikko/commands.sls"
+         "lib/talikko/commands/commands.sls"
+         "lib/talikko/commands/deinstall.sls"
+         "lib/talikko/commands/info.sls"
+         "lib/talikko/commands/install.sls"
+         "lib/talikko/commands/reinstall.sls"
+         "lib/talikko/commands/search.sls"
+         "lib/talikko/commands/update.sls"
+         "lib/talikko/commands/help.sls"
+         "bin/talikko"
+         "talikko.lehspec"
+         )))
