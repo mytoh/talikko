@@ -6,7 +6,8 @@
       deinstall
       reinstall
       info
-      search)
+      search
+      help)
   (import
     (silta base)
     (talikko commands commands)
@@ -16,4 +17,5 @@
     (talikko commands install)
     (talikko commands info)
     (talikko commands reinstall)
+    (talikko commands help)
     ))

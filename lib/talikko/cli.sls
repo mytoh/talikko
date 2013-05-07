@@ -23,5 +23,7 @@
         ("commands"
          (commands))
         ((or "update" "up")
-         (update args))))
+         (update args))
+        (else
+            (help))))
     ))
