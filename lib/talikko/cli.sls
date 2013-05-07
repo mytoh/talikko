@@ -8,7 +8,8 @@
   (begin
 
     (define (safe-cadr x)
-      (cond ((< (length x) 1)
+      (cond ((and (pair? x)
+               (< (length x) 1))
              (cadr x))
             (else
                 '())))
