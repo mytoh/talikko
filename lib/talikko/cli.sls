@@ -20,18 +20,20 @@
         ;; commands
         ("info"
          (info args))
-        ((or "install" "i")
+        ("install"
          (install args))
         ((or "deinstall" "remove" "rm")
          (deinstall args))
-        ((or "re" "reinstall")
+        ("reinstall"
          (reinstall args))
         ("search"
          (search args))
         ("commands"
          (commands))
-        ((or "update" "up")
+        ("update"
          (update args))
+        ("package"
+         (package))
         (else
             (help))))
     ))

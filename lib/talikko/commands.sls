@@ -7,6 +7,7 @@
       reinstall
       info
       search
+      package
       help)
   (import
     (silta base)
@@ -18,4 +19,5 @@
     (talikko commands info)
     (talikko commands reinstall)
     (talikko commands help)
+    (talikko commands package)
     ))
