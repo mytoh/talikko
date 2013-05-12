@@ -13,18 +13,17 @@
 
   (begin
 
-    (define (install args)
-      (let ((packages (cddr args)))
-        (for-each
-            (lambda (p)
-              (set-current-directory! (build-path "/usr/ports" p))
-              (ohei (string-append "install package " p "..."))
-              (run-command '(sudo make install)))
-          packages)))
+    (define (install package)
+      (set-current-directory! (build-path "/usr/ports" package))
+      (ohei (string-append "install package " package "..."))
+      (run-command '(sudo make config))
+      (run-command '(sudo make install)))
 
     (define (package)
       (let* ((config (build-path (home-directory) ".talikko/ports"))
              (pkgs (file->string-list config)))
-        (display pkgs)))
+        (for-each
+            install
+          pkgs)))
 
     ))
