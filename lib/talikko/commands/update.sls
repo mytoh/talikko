@@ -36,7 +36,7 @@
     (define (fetch-index)
       (run-command '("sudo" "make" "-C"  "/usr/ports" "fetchindex")))
 
-    (define(%update base url)
+    (define (%update base url)
       (let ((base-dir (string-append "/usr/" base)))
         (cond
           ((file-exists? base-dir)
