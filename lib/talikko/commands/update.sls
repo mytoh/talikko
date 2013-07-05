@@ -29,7 +29,7 @@
         (ohei (string-append "get" ))
         (cond
           ((url-svn? url)
-           (run-command `(sudo "svn" "checkout" "-q" ,url ,base-dir)))
+           (run-command `(sudo "svnlite" "checkout" "-q" ,url ,base-dir)))
           ((url-git? url)
            (run-command `(sudo git clone ,url ,base-dir))))))
 
@@ -46,7 +46,7 @@
              ((file-exists? (string-append base-dir "/.git"))
               (run-command '(sudo git pull)))
              ((file-exists? (string-append base-dir "/.svn"))
-              (let ((out (process-output->string (string-append "sudo svn up " base-dir))))
+              (let ((out (process-output->string (string-append "sudo svnlite up " base-dir))))
                 (format #t "~a\n" out)))))
           (else
               (get-source url base)))))
